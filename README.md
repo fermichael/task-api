@@ -1,4 +1,4 @@
-# ApiCodex
+# Task API
 
 Projeto pessoal criado para praticar o desenvolvimento de uma API de tarefas
 com Node.js.
