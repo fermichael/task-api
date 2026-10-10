@@ -54,3 +54,28 @@ e regras de acesso.
 Este projeto faz parte da minha evolução nos estudos de desenvolvimento
 backend, saindo de uma API mock com dados fixos para uma API com banco de
 dados, usuários e autenticação.
+
+## Interface web
+
+Com o PostgreSQL configurado e em execução, inicie a API com `npm run dev`
+e abra **http://localhost:3000** no navegador. Se a loja de RPG estiver usando
+essa porta, encerre aquele servidor primeiro.
+
+A interface permite cadastrar uma conta, entrar, criar, editar, concluir e
+excluir tarefas, filtrar a lista e sair da conta. Use o endereço HTTP;
+não abra o HTML diretamente nem use Live Server.
+
+### Como o frontend funciona
+
+- `public/index.html`: estrutura da página, formulários e botões.
+- `public/styles.css`: cores, layout e adaptação para telas pequenas.
+- `public/app.js`: eventos e pedidos HTTP com `fetch`, usando as rotas existentes.
+- `src/server.ts`: `express.static` entrega os três arquivos ao navegador.
+
+O frontend e a API usam a mesma origem. O navegador guarda o cookie de sessão
+e o envia nos pedidos; o JavaScript não precisa ler o cookie nem guardar senhas.
+`await fetch(...)` espera a resposta, e `response.json()` lê seu corpo.
+O filtro Todas/Pendentes/Concluídas usa a lista já recebida, sem mudar as rotas.
+
+Cadastro e login continuam sendo operações separadas. Reiniciar a API apaga
+as sessões em memória, mas preserva usuários e tarefas no PostgreSQL.

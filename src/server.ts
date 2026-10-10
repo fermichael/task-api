@@ -1,3 +1,4 @@
+import path from 'node:path';
 import express from 'express';
 import session from 'express-session';
 
@@ -23,6 +24,9 @@ app.use(
     saveUninitialized: false,
   })
 );
+
+// Serve o frontend no mesmo endereço da API, mantendo os cookies na mesma origem.
+app.use(express.static(path.join(__dirname, '..', 'public')));
 
 app.use(tarefasRouter);
 
