@@ -55,27 +55,29 @@ Este projeto faz parte da minha evolução nos estudos de desenvolvimento
 backend, saindo de uma API mock com dados fixos para uma API com banco de
 dados, usuários e autenticação.
 
-## Interface web
+## Interface web de estudo
 
 Com o PostgreSQL configurado e em execução, inicie a API com `npm run dev`
-e abra **http://localhost:3000** no navegador. Se a loja de RPG estiver usando
-essa porta, encerre aquele servidor primeiro.
+e abra **http://localhost:3000**. Não use Live Server nem abra o HTML diretamente.
 
-A interface permite cadastrar uma conta, entrar, criar, editar, concluir e
-excluir tarefas, filtrar a lista e sair da conta. Use o endereço HTTP;
-não abra o HTML diretamente nem use Live Server.
+A interface tem três telas: login, cadastro e tarefas. Após cadastrar, volte
+ao login. Após entrar, a mesma tela reúne criação, listagem, edição do título,
+conclusão/desmarcação, exclusão com confirmação e logout.
 
-### Como o frontend funciona
+### Estrutura do frontend
 
-- `public/index.html`: estrutura da página, formulários e botões.
-- `public/styles.css`: cores, layout e adaptação para telas pequenas.
-- `public/app.js`: eventos e pedidos HTTP com `fetch`, usando as rotas existentes.
-- `src/server.ts`: `express.static` entrega os três arquivos ao navegador.
+- `public/index.html`: três seções; o atributo `hidden` escolhe a tela visível.
+- `public/styles.css`: aparência simples e adaptação para celular.
+- `public/app.js`: uma função por operação da API, com pedidos `fetch` explícitos.
+- `src/server.ts`: entrega os arquivos com `express.static`.
 
-O frontend e a API usam a mesma origem. O navegador guarda o cookie de sessão
-e o envia nos pedidos; o JavaScript não precisa ler o cookie nem guardar senhas.
-`await fetch(...)` espera a resposta, e `response.json()` lê seu corpo.
-O filtro Todas/Pendentes/Concluídas usa a lista já recebida, sem mudar as rotas.
+`mostrarTela` alterna as seções. `entrar` lê os inputs e envia POST `/users/login`.
+`verificarSessao` consulta `/users/me` ao abrir a página e recupera o acesso
+se o cookie ainda for válido. `listarTarefas` cria elementos da lista para
+cada objeto recebido. A edição usa um formulário na própria linha, sem modal.
 
-Cadastro e login continuam sendo operações separadas. Reiniciar a API apaga
-as sessões em memória, mas preserva usuários e tarefas no PostgreSQL.
+Frontend e API têm a mesma origem: o navegador envia o cookie automaticamente.
+Senhas e cookies não são guardados manualmente pelo JavaScript. As sessões
+ficam em memória e desaparecem quando a API reinicia; os dados do banco permanecem.
+
+Esta interface foi construída com apoio de IA como material de estudo.

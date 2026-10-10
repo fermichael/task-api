@@ -3,35 +3,56 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#172d29">
-  <title>Em dia — minhas tarefas</title>
+  <title>Minhas tarefas</title>
   <link rel="stylesheet" href="/styles.css">
   <script src="/app.js" defer></script>
 </head>
 <body>
-  <header class="topbar"><a class="brand" href="/" aria-label="Em dia, início"><span class="brand-icon" aria-hidden="true">✓</span> em dia<span class="brand-dot">.</span></a><span class="header-note">Um passo de cada vez.</span></header>
   <main>
-    <section id="auth-view" class="auth-layout" hidden>
-      <div class="intro"><p class="eyebrow">ESPAÇO PARA O QUE IMPORTA</p><h1>Menos coisas<br>na cabeça.<br><span>Mais em dia.</span></h1><p class="intro-text">Organize seus próximos passos e acompanhe o que você já fez. Uma tarefa de cada vez.</p><div class="sample-card" aria-hidden="true"><div><span class="sample-check">✓</span><span class="sample-done">Dar o primeiro passo</span></div><div><span class="sample-check empty"></span>Continuar aprendendo</div><div class="sample-foot">Pequenos passos também são progresso.</div></div></div>
-      <div class="auth-card"><div class="auth-tabs" role="group" aria-label="Acesso à conta"><button id="login-tab" class="active" type="button" aria-pressed="true">Entrar</button><button id="signup-tab" type="button" aria-pressed="false">Criar conta</button></div>
-        <h2 id="auth-title">Bom ter você por aqui.</h2><p id="auth-description" class="muted">Entre para acessar suas tarefas.</p>
-        <form id="auth-form"><div id="name-field" hidden><label for="name">Nome</label><input id="name" name="nome" autocomplete="name" placeholder="Como podemos chamar você?"></div><label for="email">Email</label><input id="email" name="email" type="email" autocomplete="username" placeholder="voce@exemplo.com" required><label for="password">Senha</label><input id="password" name="senha" type="password" autocomplete="current-password" required placeholder="Sua senha"><button id="auth-submit" class="primary full" type="submit">Entrar na minha conta <span aria-hidden="true">↗</span></button><p id="auth-message" class="message" role="status" aria-live="polite"></p></form>
-        <p class="auth-footer">Seu espaço. Suas tarefas.</p>
-      </div>
+    <header><h1>Minhas tarefas</h1><p>Organize seus próximos passos.</p></header>
+    <p id="mensagem" role="status" aria-live="polite"></p>
+
+    <!-- hidden oculta uma tela. O JavaScript escolhe qual fica visível. -->
+    <section id="tela-login" hidden>
+      <h2>Entrar</h2>
+      <p>Entre na sua conta para acessar suas tarefas.</p>
+      <form id="form-login">
+        <label for="login-email">Email</label>
+        <input id="login-email" type="email" autocomplete="username" required>
+        <label for="login-senha">Senha</label>
+        <input id="login-senha" type="password" autocomplete="current-password" required>
+        <button type="submit">Entrar</button>
+      </form>
+      <p class="troca-tela">Ainda não tem conta? <button id="abrir-cadastro" type="button" class="link">Criar conta</button></p>
     </section>
-    <section id="tasks-view" class="workspace" hidden>
-      <div class="workspace-heading"><div><p class="eyebrow">SEU DIA, MAIS LEVE</p><h1>Meus próximos passos<span class="brand-dot">.</span></h1><p class="muted">Organize o que vem pela frente e celebre cada conclusão.</p></div><button id="logout" class="secondary" type="button">Sair da conta ↗</button></div>
-      <div class="stats" aria-label="Resumo das tarefas"><div><span class="stat-label">NO SEU RADAR</span><strong id="total-count">0</strong><span>tarefas no total</span></div><div><span class="stat-label">PRÓXIMOS PASSOS</span><strong id="pending-count">0</strong><span>para fazer</span></div><div class="stat-completed"><span class="stat-label">JÁ FOI!</span><strong id="done-count">0</strong><span>concluídas</span></div></div>
-      <div class="task-panel"><form id="new-task-form" class="new-task-form"><label for="new-task">O que você quer fazer?</label><div class="input-row"><input id="new-task" name="titulo" required placeholder="Ex.: Revisar meu projeto de API" autocomplete="off"><button id="add-task" class="primary" type="submit">+ Adicionar</button></div></form>
-        <div class="list-toolbar"><div class="filters" role="group" aria-label="Filtrar tarefas"><button type="button" data-filter="all" class="active" aria-pressed="true">Todas</button><button type="button" data-filter="pending" aria-pressed="false">Pendentes</button><button type="button" data-filter="done" aria-pressed="false">Concluídas</button></div><button id="refresh" class="text-button" type="button">↻ Atualizar</button></div>
-        <p id="tasks-message" class="message" role="status" aria-live="polite"></p><div id="task-list" class="task-list" aria-label="Lista de tarefas"></div><div id="empty-state" class="empty-state" hidden><span aria-hidden="true">✦</span><h2 id="empty-title">Um bom começo.</h2><p id="empty-description">Adicione sua primeira tarefa e dê o próximo passo.</p></div>
-        <div class="panel-footer"><span id="list-summary">Carregando tarefas…</span><span>Pequenos passos contam.</span></div>
-      </div>
+
+    <section id="tela-cadastro" hidden>
+      <h2>Criar conta</h2>
+      <p>Cadastre-se e depois entre com seu email e sua senha.</p>
+      <form id="form-cadastro">
+        <label for="cadastro-nome">Nome</label>
+        <input id="cadastro-nome" autocomplete="name" required>
+        <label for="cadastro-email">Email</label>
+        <input id="cadastro-email" type="email" autocomplete="username" required>
+        <label for="cadastro-senha">Senha</label>
+        <input id="cadastro-senha" type="password" autocomplete="new-password" required>
+        <button type="submit">Cadastrar</button>
+      </form>
+      <p class="troca-tela">Já tem conta? <button id="abrir-login" type="button" class="link">Voltar para entrar</button></p>
     </section>
-    <p id="boot-message" class="boot-message" role="status">Abrindo seu espaço…</p>
+
+    <section id="tela-tarefas" hidden>
+      <div class="titulo-tarefas"><h2>Suas tarefas</h2><button id="botao-sair" type="button" class="secundario">Sair</button></div>
+      <form id="form-tarefa">
+        <label for="titulo">Nova tarefa</label>
+        <input id="titulo" required placeholder="Ex.: Estudar minha API">
+        <button type="submit">Adicionar tarefa</button>
+      </form>
+      <div class="titulo-lista"><p>Marque a caixa para concluir ou desmarque para voltar a pendente.</p><button id="botao-listar" type="button" class="secundario">Atualizar lista</button></div>
+      <p id="aviso-lista"></p>
+      <ul id="lista-tarefas"></ul>
+    </section>
+    <p id="carregando" role="status">Verificando sua sessão…</p>
   </main>
-  <dialog id="edit-dialog"><form id="edit-form"><p class="eyebrow">AJUSTAR O PRÓXIMO PASSO</p><h2>Editar tarefa</h2><label for="edit-title">Título</label><input id="edit-title" required autocomplete="off"><p id="edit-message" class="message" role="status"></p><div class="dialog-actions"><button id="cancel-edit" class="secondary" type="button">Cancelar</button><button class="primary" type="submit">Salvar alteração</button></div></form></dialog>
-  <dialog id="delete-dialog"><form id="delete-form"><p class="eyebrow">REMOVER DA LISTA</p><h2>Excluir esta tarefa?</h2><p id="delete-title" class="delete-title"></p><p class="muted">Essa ação não pode ser desfeita.</p><p id="delete-message" class="message" role="status"></p><div class="dialog-actions"><button id="cancel-delete" class="secondary" type="button">Cancelar</button><button class="danger" type="submit">Excluir tarefa</button></div></form></dialog>
-  <footer class="site-footer">EM DIA <span>Feito para dar espaço aos seus próximos passos.</span></footer>
 </body>
 </html>
