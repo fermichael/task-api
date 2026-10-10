@@ -55,29 +55,3 @@ Este projeto faz parte da minha evolução nos estudos de desenvolvimento
 backend, saindo de uma API mock com dados fixos para uma API com banco de
 dados, usuários e autenticação.
 
-## Interface web de estudo
-
-Com o PostgreSQL configurado e em execução, inicie a API com `npm run dev`
-e abra **http://localhost:3000**. Não use Live Server nem abra o HTML diretamente.
-
-A interface tem três telas: login, cadastro e tarefas. Após cadastrar, volte
-ao login. Após entrar, a mesma tela reúne criação, listagem, edição do título,
-conclusão/desmarcação, exclusão com confirmação e logout.
-
-### Estrutura do frontend
-
-- `public/index.html`: três seções; o atributo `hidden` escolhe a tela visível.
-- `public/styles.css`: aparência simples e adaptação para celular.
-- `public/app.js`: uma função por operação da API, com pedidos `fetch` explícitos.
-- `src/server.ts`: entrega os arquivos com `express.static`.
-
-`mostrarTela` alterna as seções. `entrar` lê os inputs e envia POST `/users/login`.
-`verificarSessao` consulta `/users/me` ao abrir a página e recupera o acesso
-se o cookie ainda for válido. `listarTarefas` cria elementos da lista para
-cada objeto recebido. A edição usa um formulário na própria linha, sem modal.
-
-Frontend e API têm a mesma origem: o navegador envia o cookie automaticamente.
-Senhas e cookies não são guardados manualmente pelo JavaScript. As sessões
-ficam em memória e desaparecem quando a API reinicia; os dados do banco permanecem.
-
-Esta interface foi construída com apoio de IA como material de estudo.
