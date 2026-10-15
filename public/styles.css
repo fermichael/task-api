@@ -19,7 +19,7 @@ summary { cursor: pointer; }
 ul { list-style: none; padding: 0; }
 li { display: flex; align-items: center; gap: 12px; border-top: 1px solid #e2e8e3; padding: 14px 0; }
 li label { display: flex; flex: 1; gap: 10px; align-items: center; min-width: 0; margin: 0; }
-li input { width: 19px; height: 19px; flex-shrink: 0; accent-color: #24573c; }
+li input[type="checkbox"] { width: 19px; height: 19px; flex-shrink: 0; accent-color: #24573c; }
 li span { overflow-wrap: anywhere; }
 li button { margin: 0; background: white; color: #873535; border-color: #d5bbbb; font-size: 14px; }
 li button:hover { background: #f8eded; }
